@@ -1,8 +1,8 @@
 import React from "react"
 
 import MyTable from '../components/MyTable'
-import TestButton from '../components/TestButton'
 import ElevationScroll from '../components/ElevationScroll'
+import InputFormDialog from '../components/InputFormDialog'
 import { TakuLogProvider } from '../components/TakuLogContext'
 import useAddToHomeScreen from '../components/useAddHomeScreen'
 
@@ -43,12 +43,12 @@ export default () => {
           >
             <AddToHomeScreenIcon />
           </IconButton>}
-            <TestButton />
+          <InputFormDialog></InputFormDialog>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
       <Toolbar />
-      <MyTable></MyTable>
+      <MyTable />
     </TakuLogProvider>
   )
 }

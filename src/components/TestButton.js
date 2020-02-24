@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core'
 import { TakuLogContext } from './TakuLogContext'
 
-export default () => {
+export default ({onClick}) => {
   const { data, addData, setData } = React.useContext(TakuLogContext)
   const [score, setScore] = React.useState({
     player1: 'aino',
@@ -19,6 +19,10 @@ export default () => {
     console.log(data)
   }, [data])
 
+  const handleClick = () => {
+    addData(score)
+    onClick()
+  }
 
   return (
     <div>
@@ -29,7 +33,7 @@ export default () => {
         return o
       }, [])
     */}
-      <Button onClick={() => addData(score)}>追加</Button>
+      <Button color='primary' onClick={handleClick}>追加</Button>
     </div>
   )
 }
