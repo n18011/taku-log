@@ -10,8 +10,10 @@ import {
   AppBar,
   Toolbar,
   CssBaseline,
-  Typography
+  Typography,
+  IconButton
 } from '@material-ui/core'
+import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen'
 
 
 export default () => {
@@ -32,7 +34,15 @@ export default () => {
         <AppBar>
           <Toolbar>
             <Typography variant="h6" noWrap>TTLog</Typography>
-            {!visible ? <div/>: <button onClick={promptToInstall}>Add to home screen</button>}
+            {!visible ? <div/>: 
+            <IconButton
+            edge="end"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={promptToInstall}
+          >
+            <AddToHomeScreenIcon />
+          </IconButton>}
             <TestButton />
           </Toolbar>
         </AppBar>
