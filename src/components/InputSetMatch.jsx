@@ -7,7 +7,7 @@ import {
   MenuItem
 } from '@material-ui/core'
 
-const InputSetMatch = ({set, onChange}) => {
+const InputSetMatch = ({game, onChange}) => {
   const inputLabel = React.useRef(null)
   const [labelWidth, setLabelWidth] = React.useState(0);
 
@@ -23,7 +23,7 @@ const InputSetMatch = ({set, onChange}) => {
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={set}
+          value={game}
           onChange={onChange}
           labelWidth={labelWidth}
         >

@@ -33,7 +33,7 @@ const InputFormDialog = () => {
     player2: 'nishino',
     p2Score: 0,
     where: 'okinawa',
-    set: 3,
+    game: 3,
     pointList: {
       player1: {},
       player2: {}
@@ -41,25 +41,41 @@ const InputFormDialog = () => {
   })
   const [pList, setPList] = React.useState([])
 
+  // TODO:: スコアの更新
+  // TODO:: スコアのオート入力
+
+  // pointListにプレイヤーの得点を更新する
+  const pointAdd = (e, who, set) => {
+    setScore({
+      ...score,
+      pointList: {
+        ...score.pointList,
+        [who]: {
+          ...score.pointList[who],
+          [set]: e.target.value}
+      }})
+  }
+  // TODO:: pointのオート入力
   React.useEffect(() => {
     const l = []
-    for (var i= 1; i<= score.set; i++) {
+    for (var i= 1; i<= score.game; i++) {
           l.push(<Grid container alignItems='center' justify='center'>
             <Grid item xs>
-              <InputPoint></InputPoint>
+              <InputPoint player='player1' set={i} onChange={pointAdd}></InputPoint>
             </Grid>
             <Grid item xs={2}>
               <Typography variant='body2' align='center'>{i}</Typography>
             </Grid>
             <Grid item xs>
-              <InputPoint></InputPoint>
+              <InputPoint player='player2' set={i} onChange={pointAdd}></InputPoint>
             </Grid>
           </Grid>
       )
     }
     setPList(l)
+    console.log(score)
 
-  }, [score.set])
+  }, [score.game])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -69,8 +85,8 @@ const InputFormDialog = () => {
     setOpen(false);
   };
 
-  const handleChange = event => {
-    setScore({...score, set: event.target.value})
+  const gameChange = event => {
+    setScore({...score, game: event.target.value})
   }
 
 
@@ -96,7 +112,7 @@ const InputFormDialog = () => {
 
             </Grid>
             <Grid item xs>
-              <InputSetMatch set={score.set} onChange={handleChange}></InputSetMatch>
+              <InputSetMatch game={score.game} onChange={gameChange}></InputSetMatch>
             </Grid>
           </Grid>
           <DialogContentText>
