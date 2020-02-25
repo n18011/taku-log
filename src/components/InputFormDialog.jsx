@@ -1,6 +1,8 @@
 import React from 'react';
 
+import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -25,6 +27,39 @@ const InputFormDialog = () => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [score, setScore] = React.useState({
+    player1: 'aino',
+    p1Score: 11,
+    player2: 'nishino',
+    p2Score: 0,
+    where: 'okinawa',
+    set: 3,
+    pointList: {
+      player1: {},
+      player2: {}
+  }
+  })
+  const [pList, setPList] = React.useState([])
+
+  React.useEffect(() => {
+    const l = []
+    for (var i= 1; i<= score.set; i++) {
+          l.push(<Grid container alignItems='center' justify='center'>
+            <Grid item xs>
+              <InputPoint></InputPoint>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography variant='body2' align='center'>{i}</Typography>
+            </Grid>
+            <Grid item xs>
+              <InputPoint></InputPoint>
+            </Grid>
+          </Grid>
+      )
+    }
+    setPList(l)
+
+  }, [score.set])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -33,6 +68,11 @@ const InputFormDialog = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleChange = event => {
+    setScore({...score, set: event.target.value})
+  }
+
 
   return (
     <div>
@@ -47,23 +87,54 @@ const InputFormDialog = () => {
       >
         <DialogTitle id="responsive-dialog-title">新しいスコア</DialogTitle>
         <DialogContent>
+
+          <Grid container >
+            <Grid item xs>
+              <InputWhere></InputWhere>
+            </Grid>
+            <Grid item md={2}>
+
+            </Grid>
+            <Grid item xs>
+              <InputSetMatch set={score.set} onChange={handleChange}></InputSetMatch>
+            </Grid>
+          </Grid>
           <DialogContentText>
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
+            必須項目は*のある項目です。またゲームスコアが記入されていれば、それぞれのセットのポイントを省くことも可能。
           </DialogContentText>
-          <InputWhere></InputWhere>
-          <InputSetMatch></InputSetMatch>
-          <InputMyName></InputMyName>
-          <InputOpponent></InputOpponent>
-          <InputPoint></InputPoint>
-          <InputScore></InputScore>
+
+          <Grid container alignItems='center' justify='center'>
+            <Grid item xs>
+              <InputMyName></InputMyName>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography variant='body2' align='center'>vs</Typography>
+            </Grid>
+            <Grid item xs>
+              <InputOpponent></InputOpponent>
+            </Grid>
+          </Grid>
+
+          {pList}
+
+          <Grid container alignItems='center' justify='center'>
+            <Grid item xs>
+              <InputScore></InputScore>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography variant='body2' align='center'>Game*</Typography>
+            </Grid>
+            <Grid item xs>
+              <InputScore></InputScore>
+            </Grid>
+          </Grid>
+
           <InputMemo></InputMemo>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
             Disagree
           </Button>
-          <TestButton onClick={handleClose}></TestButton>
         </DialogActions>
       </Dialog>
     </div>

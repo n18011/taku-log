@@ -9,9 +9,9 @@ export default ({onClick}) => {
   const { data, addData, setData } = React.useContext(TakuLogContext)
   const [score, setScore] = React.useState({
     player1: 'aino',
-    p1Point: 11,
+    p1Score: 11,
     player2: 'nishino',
-    p2Point: 0,
+    p2Score: 0,
     where: 'okinawa'
   })
 

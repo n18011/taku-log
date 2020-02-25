@@ -18,7 +18,7 @@ const columns = [
     label: 'Player1',
   },
   {
-    id: 'p1Point',
+    id: 'p1Score',
     label: '',
     align: 'right'
   },
@@ -28,7 +28,7 @@ const columns = [
     align: 'center'
   },
   {
-    id: 'p2Point',
+    id: 'p2Score',
     label: '',
     align: 'left'
   },
@@ -126,11 +126,8 @@ const MyTable = () => {
               return a
             }, []).reverse()}
           </TableBody>
-        </Table>
-      </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
-        component="div"
         labelRowsPerPage='表示数'
         count={data.length}
         rowsPerPage={rowsPerPage}
@@ -138,6 +135,8 @@ const MyTable = () => {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
+        </Table>
+      </TableContainer>
     </Paper>
   );
 }

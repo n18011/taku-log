@@ -22,7 +22,7 @@ const TakuLogProvider = ({ children }) => {
   const addData = React.useCallback((value) => {
     setView(false)
     lf.setItem('taku-log', [...data, value]).then(v => {
-      console.log(v + ': を保存しました')
+      console.log(value + ' を保存しました' + ': ' + v)
       setView(true)
     }).catch(err => {
       console.log(err)

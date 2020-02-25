@@ -7,8 +7,7 @@ import {
   MenuItem
 } from '@material-ui/core'
 
-const InputSetMatch = () => {
-  const [set, setSet] = React.useState(1)
+const InputSetMatch = ({set, onChange}) => {
   const inputLabel = React.useRef(null)
   const [labelWidth, setLabelWidth] = React.useState(0);
 
@@ -16,26 +15,23 @@ const InputSetMatch = () => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  const handleChange = event => {
-    setSet(event.target.value)
-  }
   return (
-    <FormControl variant="outlined" >
+    <FormControl variant="outlined" size='small'>
         <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-          セット
+          セット*
         </InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={set}
-          onChange={handleChange}
+          onChange={onChange}
           labelWidth={labelWidth}
         >
-          <MenuItem value={1}>1セットマッチ</MenuItem>
-          <MenuItem value={2}>2セットマッチ</MenuItem>
-          <MenuItem value={3}>3セットマッチ</MenuItem>
-          <MenuItem value={5}>5セットマッチ</MenuItem>
-          <MenuItem value={7}>7セットマッチ</MenuItem>
+          <MenuItem value={1}>1ゲームマッチ</MenuItem>
+          <MenuItem value={2}>2ゲームマッチ</MenuItem>
+          <MenuItem value={3}>3ゲームマッチ</MenuItem>
+          <MenuItem value={5}>5ゲームマッチ</MenuItem>
+          <MenuItem value={7}>7ゲームマッチ</MenuItem>
         </Select>
       </FormControl>
   )

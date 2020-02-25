@@ -33,7 +33,7 @@ export default () => {
       <ElevationScroll >
         <AppBar>
           <Toolbar>
-            <Typography variant="h6" noWrap>TTLog</Typography>
+            <Typography variant="h6" edge='start' noWrap>TTLog</Typography>
             {!visible ? <div/>: 
             <IconButton
             edge="end"
