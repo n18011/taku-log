@@ -81,7 +81,6 @@ const InputFormDialog = () => {
     })
   }
 
-  // TODO:: 同じセットを更新すると最初に更新したものが消される問題
   React.useEffect(() => {
     const l = []
     for (var i= 1; i<= score.game; i++) {
@@ -153,11 +152,7 @@ const InputFormDialog = () => {
             </Grid>
           </Grid>
 
-          {pList.reduce((a, v, i) => {
-            a[i] = v
-            return a
-          }, []
-          )}
+          {pList}
 
           <Grid container alignItems='center' justify='center'>
             <Grid item xs>
