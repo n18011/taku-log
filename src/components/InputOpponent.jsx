@@ -2,12 +2,12 @@ import React from 'react'
 
 import TextField from '@material-ui/core/TextField'
 
-const InputOpponent = ({name, onChange}) => (
+const InputOpponent = ({id, onChange}) => (
   <TextField
   required
   label='対戦相手'
   size='small'
-  onChange={(e) => onChange(e, name)}
+  onChange={(e) => onChange(e, id)}
   variant='outlined' />
 )
 

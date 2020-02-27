@@ -2,12 +2,12 @@ import React from 'react'
 
 import TextField from '@material-ui/core/TextField'
 
-const InputMyName = ({name, onChange}) => (
+const InputMyName = ({id, onChange}) => (
   <TextField
   required
   label='名前'
   defaultValue='自分'
-  onChange={(e) => onChange(e, name)}
+  onChange={(e) => onChange(e, id)}
   size='small'
   variant='outlined' />
 )

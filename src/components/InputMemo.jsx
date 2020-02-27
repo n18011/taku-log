@@ -6,8 +6,18 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {makeStyles} from '@material-ui/core'
 
-const InputMemo = () => {
+const useStyles = makeStyles(theme => ({
+  textaria: {
+    width: '200px',
+    [theme.breakpoints.up('sm')]: {
+      width: '400px'
+    }
+  }
+}))
+const InputMemo = ({id, onChange}) => {
+  const classes = useStyles()
   return (
     <ExpansionPanel>
         <ExpansionPanelSummary
@@ -19,8 +29,10 @@ const InputMemo = () => {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
         <TextareaAutosize
+        className={classes.textaria}
         rowsMin={2}
       rowsMax={4}
+      onChange={(e) => onChange(e, id)}
       placeholder="自由記入"
     />
         </ExpansionPanelDetails>

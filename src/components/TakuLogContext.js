@@ -12,7 +12,7 @@ const TakuLogProvider = ({ children }) => {
   React.useEffect(() => {
     view && lf.getItem('taku-log').then(value => {
       value && setData(value)
-      console.log('local strage is:' , value)
+      console.log('local strage is:', value)
     }).catch(err => {
       console.log(err)
     })
@@ -22,7 +22,7 @@ const TakuLogProvider = ({ children }) => {
   const addData = React.useCallback((value) => {
     setView(false)
     lf.setItem('taku-log', [...data, value]).then(v => {
-      console.log(value + ' を保存しました' + ': ' + v)
+      console.log(v + ' として保存しました')
       setView(true)
     }).catch(err => {
       console.log(err)
@@ -30,8 +30,9 @@ const TakuLogProvider = ({ children }) => {
     })
   }, [data])
 
-  // TODO::データ更新
-  // TODO::データ削除
+  /*
+  // TODO::データ更新 
+  // TODO::データ削除 
   const deleteData = React.useCallback(() => {
     lf.removeItem('taku-log').then(() => {
       console.log('データを削除しました')
@@ -39,6 +40,7 @@ const TakuLogProvider = ({ children }) => {
       console.log(err)
     })
   }, [])
+  */
 
   return (
     <TakuLogContext.Provider value={{ data, setData, addData }}>

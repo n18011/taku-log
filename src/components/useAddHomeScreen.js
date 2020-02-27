@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 export default () => {
-  const [prompt, setPrompt] = useState(null)
+  const [prompt, setPrompt] = React.useState(null)
 
   const promptToInstall = () => {
     if (prompt) {
@@ -14,7 +14,7 @@ export default () => {
     )
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     const ready = (e) => {
       e.preventDefault()
       setPrompt(e)
