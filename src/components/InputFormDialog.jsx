@@ -28,46 +28,73 @@ const InputFormDialog = () => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [score, setScore] = React.useState({
-    player1: 'aino',
-    p1Score: 11,
-    player2: 'nishino',
+    player1: '自分',
+    p1Score: 0,
+    player2: '',
     p2Score: 0,
     where: 'okinawa',
     game: 3,
     pointList: {
       player1: {},
-      player2: {}
-  }
+      player2: {},
+    },
+    memo: ''
   })
   const [pList, setPList] = React.useState([])
 
-  // TODO:: スコアの更新
+  //  game 数の更新
+  const gameChange = event => {
+    setScore({...score, game: event.target.value})
+  }
+
+  // TODO:: memoの更新
+
+  // TODO:: player nameの更新
+  const updateName = (e, who) => {
+    setScore({
+      ...score,
+      [who]: e.target.value
+    })
+  }
+
+  // スコアの更新
   // TODO:: スコアのオート入力
+  const updateScore = (e, which) => {
+    setScore({
+      ...score,
+      [which]: parseInt(e.target.value)
+    })
+  }
 
   // pointListにプレイヤーの得点を更新する
-  const pointAdd = (e, who, set) => {
+  // TODO:: pointのオート入力
+  const pointAdd  = (e, who, set) => {
+    const pointList = score.pointList
+    const w = pointList[who]
+    w[set] = parseInt(e.target.value)
     setScore({
       ...score,
       pointList: {
         ...score.pointList,
-        [who]: {
-          ...score.pointList[who],
-          [set]: e.target.value}
-      }})
+        [who]: w
+      }
+    })
   }
-  // TODO:: pointのオート入力
+
+  // TODO:: 同じセットを更新すると最初に更新したものが消される問題
   React.useEffect(() => {
     const l = []
     for (var i= 1; i<= score.game; i++) {
-          l.push(<Grid container alignItems='center' justify='center'>
+          l.push(
+          <Grid container alignItems='center' justify='center' key={i}>
             <Grid item xs>
-              <InputPoint player='player1' set={i} onChange={pointAdd}></InputPoint>
+              <InputPoint player='player1' set={i} onChange={pointAdd} key={i}></InputPoint>
             </Grid>
             <Grid item xs={2}>
               <Typography variant='body2' align='center'>{i}</Typography>
             </Grid>
             <Grid item xs>
-              <InputPoint player='player2' set={i} onChange={pointAdd}></InputPoint>
+              <InputPoint player='player2' set={i} onChange={pointAdd} key={i}></InputPoint>
             </Grid>
           </Grid>
       )
@@ -85,9 +112,6 @@ const InputFormDialog = () => {
     setOpen(false);
   };
 
-  const gameChange = event => {
-    setScore({...score, game: event.target.value})
-  }
 
 
   return (
@@ -108,9 +132,7 @@ const InputFormDialog = () => {
             <Grid item xs>
               <InputWhere></InputWhere>
             </Grid>
-            <Grid item md={2}>
-
-            </Grid>
+            <Grid item md={2} />
             <Grid item xs>
               <InputSetMatch game={score.game} onChange={gameChange}></InputSetMatch>
             </Grid>
@@ -121,35 +143,39 @@ const InputFormDialog = () => {
 
           <Grid container alignItems='center' justify='center'>
             <Grid item xs>
-              <InputMyName></InputMyName>
+              <InputMyName name='player1' onChange={updateName}></InputMyName>
             </Grid>
             <Grid item xs={2}>
               <Typography variant='body2' align='center'>vs</Typography>
             </Grid>
             <Grid item xs>
-              <InputOpponent></InputOpponent>
+              <InputOpponent name='player2' onChange={updateName}></InputOpponent>
             </Grid>
           </Grid>
 
-          {pList}
+          {pList.reduce((a, v, i) => {
+            a[i] = v
+            return a
+          }, []
+          )}
 
           <Grid container alignItems='center' justify='center'>
             <Grid item xs>
-              <InputScore></InputScore>
+              <InputScore which='p1Score' onChange={updateScore}></InputScore>
             </Grid>
             <Grid item xs={2}>
               <Typography variant='body2' align='center'>Game*</Typography>
             </Grid>
             <Grid item xs>
-              <InputScore></InputScore>
+              <InputScore which='p2Score' onChange={updateScore}></InputScore>
             </Grid>
           </Grid>
 
           <InputMemo></InputMemo>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Disagree
+          <Button autoFocus onClick={handleClose} color="inherit">
+            cancle
           </Button>
         </DialogActions>
       </Dialog>
