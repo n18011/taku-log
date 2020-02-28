@@ -22,24 +22,28 @@ import InputScore from './InputScore'
 import InputMemo from './InputMemo'
 import { TakuLogContext } from './TakuLogContext'
 
+const initPoint = {
+      player1point: {},
+      player2point: {},
+  }
+
+  const initScore = {
+    player1: '自分',
+    p1Score: 0,
+    player2: '',
+    p2Score: 0,
+    where: '',
+    game: 3,
+    memo: ''
+  }
+
 const InputFormDialog = () => {
   const { addData } = React.useContext(TakuLogContext)
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const [point, setPoint] = React.useState({
-      player1point: {},
-      player2point: {},
-  })
-  const [score, setScore] = React.useState({
-    player1: '自分',
-    p1Score: 0,
-    player2: '',
-    p2Score: 0,
-    where: 'okinawa',
-    game: 3,
-    memo: ''
-  })
+  const [point, setPoint] = React.useState(initPoint)
+  const [score, setScore] = React.useState(initScore)
   const [pList, setPList] = React.useState([])
 
   //  game 数の更新
@@ -96,7 +100,7 @@ const InputFormDialog = () => {
     }
     setPList(l)
 
-  }, [score.game, pointAdd])
+  }, [score.game, pointAdd, point])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -106,10 +110,12 @@ const InputFormDialog = () => {
     setOpen(false);
   };
   
-  const saveClick = () => {
-    addData({...score, ...point})
-    handleClose()
-  }
+  const saveClick = React.useCallback(async () => {
+    await addData({...score, ...point})
+    setScore(initScore)
+    setPoint({player1point: {}, player2point: {}})
+    await handleClose()
+  }, [score, point, addData, setScore, setPoint])
 
 
 
