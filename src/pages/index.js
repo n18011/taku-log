@@ -14,6 +14,7 @@ import {
   IconButton
 } from '@material-ui/core'
 import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen'
+import {Helmet} from 'react-helmet'
 
 
 export default () => {
@@ -28,6 +29,10 @@ export default () => {
   }, [prompt])
 
   return (
+    <div className='app'>
+      <Helmet>
+        <title>TT Log</title>
+      </Helmet>
     <TakuLogProvider>
       <CssBaseline />
       <ElevationScroll >
@@ -50,5 +55,6 @@ export default () => {
       <Toolbar />
       <MyTable />
     </TakuLogProvider>
+    </div>
   )
 }
