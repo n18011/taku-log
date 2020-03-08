@@ -39,7 +39,7 @@ export default () => {
         <AppBar>
           <Toolbar>
             <Typography variant="h6" edge='start' noWrap>TTLog</Typography>
-            {!visible ? <div/>: 
+            {!prompt ? <div/>: 
             <IconButton
             edge="end"
             color="inherit"
